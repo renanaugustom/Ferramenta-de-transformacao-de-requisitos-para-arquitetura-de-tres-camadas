@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<div class="container">
+  <div class="row form-inline">
+    <div class="col-xs-1">
+      <label style="color:#1ABC9C">Projeto:</label>
+    </div>
+    <div class="col-xs-10">
+      <input id="txtProjeto" type="text" class="form-control" placeholder="Nome do Projeto" style="width:100%" />
+    </div>
+    <div class="col-xs-1">
+      <button  id="btnInserir" class="btn btn-primary"  data-toggle="tooltip" data-placement="top" title="Inserir Novo Projeto"><span class="glyphicon glyphicon-plus" ></span>  Inserir</button>
+    </div>
+  </div>
+  <br>
+
+  <div>
+    <table id="dataTable_projetos" cellpadding="0" cellspacing="0" border="0" class="display">
+      <thead>
+        <tr>
+          <th>Projeto</th>
+          <th style="text-align:center; width:180px">Casos de Uso</th>
+          <th style="text-align:center; width:90px">Classes</th>
+          <th style="text-align:center; width:90px">Código</th>
+        </tr>
+      </thead>
+      <tbody class="gradeA">
+      </tbody>
+    </table>
+  </div>
+
+   <div id="modalGerarCodigo" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4>Código Gerado</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row form-inline">
+            <div class="col-xs-12">
+              <label>Código gerado com sucesso</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div style="text-align:center"> 
+            <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok" ></span> OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalEditar" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4>Editar Projeto</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row form-inline">
+            <div>
+              <input id="hfCodigoProjeto" type="hidden" type="text" />
+            </div>
+            <div class="col-xs-2">
+              <label style="color:#1ABC9C">Projeto:</label>
+            </div>
+            <div class="col-xs-10">
+              <input id="txtProjetoEditar" type="text" class="form-control" placeholder="Nome do Projeto" style="width:85%" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div style="text-align:center"> 
+            <button id="btnExcluir" type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove" ></span> Excluir</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-left" ></span> Voltar</button>
+            <button id="btnEditar" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk" ></span> Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <msgerror></msgerror>
+</div>
+{% endblock %}
+
+
+{% block js_down %}
+  <script src="/static/jsTemplates/projeto.js"></script>
+{% endblock %}

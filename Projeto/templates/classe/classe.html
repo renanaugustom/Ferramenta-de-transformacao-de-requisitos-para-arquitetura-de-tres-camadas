@@ -1,0 +1,568 @@
+{% extends 'base.html' %}
+
+{% block container %}
+
+<div id="divBody">
+	<ul class="nav nav-tabs nav-justified" id="myTab">
+	    <li class="active"><a href="#Classes">Classes</a></li>
+	    <li><a href="#Interfaces">Interfaces</a></li>
+	</ul>
+
+	<div class="tab-content container">
+
+    	<div class="tab-pane active" id="Classes">
+	    	<br>
+			<div class="row form-inline">
+				<div class="col-xs-12" style="text-align:center">
+					<button id="btnDefinirHerancas" class="btn btn-primary">Definir Heranças</button>
+				</div>
+			</div>
+			<br/>
+			<div class="row form-inline">
+				<div class="col-xs-1 right">
+			    	<label style="color:#1ABC9C">Classe:</label>
+			    </div>
+				<div class="col-xs-7">
+					<input id="txtClasse" type="text" placeholder="Nome da classe" class="form-control" name="nome" style="width:100%" />
+				</div>
+				<div class="col-xs-1">
+				  	<button id="btnInserirClasse" class="btn btn-primary" title="Inserir nova classe"><span class="glyphicon glyphicon-plus" ></span>  Inserir</button>
+			  	</div>
+			</div>
+			<div class="row form-inline">
+				<div class="col-xs-2">
+		          <label style="color:#1ABC9C">Modificador:</label>
+		        </div>
+		        <div class="col-xs-4" style="text-align:left">
+		          <INPUT TYPE="RADIO" id="rbClassePublica" checked="checked" VALUE="public" name='gpModificadorClasse'/> <label for="rbClassePublica"/>public</label>
+		          <INPUT TYPE="RADIO" id="rbClassePrivada" VALUE="private" name='gpModificadorClasse'/> <label for="rbClassePrivada">private</label>
+		          <INPUT TYPE="RADIO" id="rbClasseProtegida" VALUE="protected" name='gpModificadorClasse'/> <label for="rbClasseProtegida">protected</label>
+		        </div>
+		        <div class="col-xs-2">
+		          <input type="checkbox" id="ckPersistencia"><label for="ckPersistencia">Persistência</label>
+		        </div>
+			</div>
+
+			<div>
+			    <table id="dataTable_classes" cellpadding="0" cellspacing="0" border="0" class="display">
+			      <thead>
+			        <tr>
+			          	<th>Classe</th>
+			          	<th style="text-align:center; width:180px">Modificador</th>
+			          	<th style="text-align:center; width:100px">Persist.</th>
+			          	<th style="text-align:center; width:180px">Caso de Uso</th>
+			          	<th style="text-align:center; width:160px">Atributos</th>
+			          	<th style="text-align:center; width:100px">Métodos</th>
+			        </tr>
+			      </thead>
+			      <tbody class="gradeA">
+			      </tbody>
+			    </table>
+		  	</div>
+	  	</div>
+
+	    <div class="tab-pane" id="Interfaces">
+			<br>
+			<div class="row form-inline">
+				<div class="col-xs-12" style="text-align:center">
+					<button id="btnDefinirImplementacoes" class="btn btn-primary">Definir Implementações</button>
+				</div>
+			</div>
+			<br/>
+			<div class="row form-inline">
+				<div class="col-xs-1 right">
+			    	<label style="color:#1ABC9C">Interface:</label>
+			    </div>
+				<div class="col-xs-7">
+					<input id="txtInterface" type="text" placeholder="Nome da interface" class="form-control" name="nome" style="width:100%" />
+				</div>
+				<div class="col-xs-1">
+				  	<button id="btnInserirInterface" class="btn btn-primary" title="Inserir nova interface"><span class="glyphicon glyphicon-plus" ></span>  Inserir</button>
+			  	</div>
+			</div>
+			<div class="row form-inline">
+				<div class="col-xs-2">
+		          <label style="color:#1ABC9C">Modificador:</label>
+		        </div>
+		        <div class="col-xs-4" style="text-align:left">
+		          <INPUT TYPE="RADIO" id="rbInterfacePublica" checked="checked" VALUE="public" name='gpModificadorInterface'/> <label for="rbInterfacePublica"/>public</label>
+		          <INPUT TYPE="RADIO" id="rbInterfacePrivada" VALUE="private" name='gpModificadorInterface'/> <label for="rbInterfacePrivada">private</label>
+		          <INPUT TYPE="RADIO" id="rbInterfaceProtegida" VALUE="protected" name='gpModificadorInterface'/> <label for="rbInterfaceProtegida">protected</label>
+		        </div>
+			</div>
+
+			<div>
+			    <table id="dataTable_interfaces" cellpadding="0" cellspacing="0" border="0" class="display">
+			      <thead>
+			        <tr>
+			          	<th>Interface</th>
+			          	<th style="text-align:center; width:180px">Modificador</th>
+			          	<th style="text-align:center; width:160px">Atributos</th>
+			          	<th style="text-align:center; width:100px">Métodos</th>
+			        </tr>
+			      </thead>
+			      <tbody class="gradeA">
+			      </tbody>
+			    </table>
+		  	</div>
+		</div>
+
+	</div>
+</div>
+
+  	<div id="modalEditarClasse" class="modal fade" tabindex='-1'>
+	    <div class="modal-dialog" style="width:800px">
+	      <div class="modal-content" style="width:800px">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	          <h4>Editar Classe</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div class="row form-inline">
+	            <div>
+	              <input id="hfCodigoClasse" type="hidden" type="text" />
+	            </div>
+	            <div class="col-xs-1">
+	              <label style="color:#1ABC9C">Classe:</label>
+	            </div>
+	            <div class="col-xs-7">
+	              <input id="txtClasseEditar" type="text" placeholder="Name" name="nome" style="width:100%" class="form-control" />
+	            </div>
+	          </div>
+	          <div class="row form-inline">
+	            <div class="col-xs-2">
+		          <label style="color:#1ABC9C">Modificador:</label>
+		        </div>
+		        <div class="col-xs-4" style="text-align:left">
+		          <INPUT TYPE="RADIO" id="rbClassePublicaEditar" checked="checked" VALUE="public" name='gpModificadorClasseEditar'> <label for="rbClassePublicaEditar"/>public</label>
+		          <INPUT TYPE="RADIO" id="rbClassePrivadaEditar" VALUE="private" name='gpModificadorClasseEditar'/> <label for="rbClassePrivadaEditar">private</label>
+		          <INPUT TYPE="RADIO" id="rbClasseProtegidaEditar" VALUE="protected" name='gpModificadorClasseEditar'/> <label for="rbClasseProtegidaEditar">protected</label>
+		        </div>
+		        <div id="divPersistenciaEditar" class="col-xs-2">
+		          <input type="checkbox" id="ckPersistenciaEditar"><label for="ckPersistenciaEditar">Persistência</label>
+		        </div>
+	          </div>
+	        </div>
+	        <div class="modal-footer">
+	          <div style="text-align:center"> 
+	            <button id="btnExcluirClasse" type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove" ></span> Excluir</button>
+	            <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-left" ></span> Voltar</button>
+	            <button id="btnEditarClasse" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk" ></span> Salvar</button>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+  	</div>
+
+  	<!-- Modal Atributos -->
+  	<div id="modalAtributos" class="modal fade" tabindex='-1' >
+	    <div class="modal-dialog" style="width:850px">
+	      <div class="modal-content" style="width:850px">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	          <h4>Definir atributos</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div class="row form-inline">
+	            <div>
+	              <input id="hfCodigoClasseAtributos" type="hidden" type="text" />
+	            </div>
+	            <div class="col-xs-1">
+	              <label style="color:#1ABC9C">Atributo:</label>
+	            </div>
+	            <div class="col-xs-5">
+	              <input id="txtAtributo" type="text" placeholder="Atributo" style="width:100%" class="form-control" />
+	            </div>
+	            <div class="col-xs-2">
+	              <label style="color:#1ABC9C">Modificador:</label>
+	            </div>
+	            <div class="col-xs-4" style="text-align:left">
+	              <INPUT TYPE="RADIO" id="rbAtributoPublico" checked="checked" VALUE="public" name='gpModificadorAtributo'/> <label for="rbAtributoPublico"/>public</label>
+	              <INPUT TYPE="RADIO" id="rbAtributoPrivado" VALUE="private" name='gpModificadorAtributo'/> <label for="rbAtributoPrivado">private</label>
+	              <INPUT TYPE="RADIO" id="rbAtributoProtegido" VALUE="protected" name='gpModificadorAtributo'/> <label for="rbAtributoProtegido">protected</label>
+	            </div>
+	          </div>
+	          <br>
+	          <div class="row form-inline" >
+	          <div class="col-xs-1">
+	              <label style="color:#1ABC9C">Tipo:</label>
+	            </div>
+	            <div class="col-xs-4">
+	              <select id="cmbTipoAtributo"></select>
+	            </div>
+	            <div class="col-xs-3" style="text-align:left">
+	              <button id="btnGerenciarTipoAtributo" class="btn btn-primary" title="Gerenciar tipo"><span class="glyphicon glyphicon-cog" ></span>Gerenciar tipos</button>
+	            </div>
+	            <div class="col-xs-4" style="text-align:left">
+	              <div id="divGetSet" >
+	              	<input type="checkbox" id="ckGerarGetSet" /><label>Getters e setters?</label>
+	              </div>
+	              <button id="btnInserirAtributo" class="btn btn-primary" title="Inserir novo atributo"><span class="glyphicon glyphicon-plus" ></span>  Inserir</button>
+	            </div>
+	          </div>
+	          <div>
+				    <table id="dataTable_atributos" cellpadding="0" cellspacing="0" border="0" class="display">
+				      <thead>
+				        <tr>
+							<th>Atributo</th>
+							<th style="width:220px">Getters e setters?</th>
+							<th style="text-align:center; width:130px">Tipo</th>
+							<th style="text-align:center; width:150px">Modificador</th>
+							<th style="text-align:center; width:80px">Excluir</th>
+				        </tr>
+				      </thead>
+				      <tbody class="gradeA">
+				      </tbody>
+				    </table>
+				    <br>
+			  	</div>
+	        </div>
+		  	<div class="modal-footer">
+	          <div style="text-align:center">     
+	            <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-left" ></span> Voltar</button>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+  	</div>
+
+  	<!-- Modal Métodos -->
+  	<div id="modalMetodos" class="modal fade" tabindex='-1' >
+	    <div class="modal-dialog" style="width:800px">
+	      <div class="modal-content" style="width:800px">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	          <h4>Definir métodos</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div class="row form-inline">
+	            <div>
+	              <input id="hfCodigoClasseMetodos" type="hidden" type="text" />
+	            </div>
+	            <div class="col-xs-1">
+	              <label style="color:#1ABC9C">Método:</label>
+	            </div>
+	            <div class="col-xs-5">
+	              <input id="txtMetodo" type="text" placeholder="Método" style="width:100%" class="form-control" />
+	            </div>
+	            <div class="col-xs-2">
+	              <label style="color:#1ABC9C">Modificador:</label>
+	            </div>
+	            <div class="col-xs-4" style="text-align:left">
+	              <INPUT TYPE="RADIO" id="rbMetodoPublico" checked="checked" VALUE="public" name='gpModificadorMetodo'/> <label for="rbMetodoPublico">public</label>
+	              <INPUT TYPE="RADIO" id="rbMetodoPrivado" VALUE="private" name='gpModificadorMetodo' /> <label for="rbMetodoPrivado">private</label>
+	              <INPUT TYPE="RADIO" id="rbMetodoProtegido" VALUE="protected" name='gpModificadorMetodo'/> <label for="rbMetodoProtegido">protected</label>
+	            </div>
+	          </div>
+	          <br>
+	          <div class="row form-inline">
+	          	<div class="col-xs-1">
+	              <label style="color:#1ABC9C">Retorno:</label>
+	            </div>
+	            <div class="col-xs-5">
+	              <select id="cmbTipoMetodo"></select>
+	            </div>
+	            <div class="col-xs-3" style="text-align:left">
+	              <button id="btnGerenciarTipoMetodo" class="btn btn-primary" title="Gerenciar retorno"><span class="glyphicon glyphicon-cog" ></span>Gerenciar retorno</button>
+	            </div>
+	            
+	            <div class="col-xs-2">
+	              <button id="btnInserirMetodo" class="btn btn-primary" title="Inserir novo método"><span class="glyphicon glyphicon-plus" ></span>  Inserir</button>
+	            </div>
+	          </div>
+	          <div>
+				    <table id="dataTable_metodos" cellpadding="0" cellspacing="0" border="0" class="display">
+				      <thead>
+				        <tr>
+							<th>Método</th>
+							<th style="text-align:center; width:150px">Retorno</th>
+							<th style="text-align:center; width:150px">Modificador</th>
+							<th style="text-align:center; width:150px">Parâmetros</th>
+							<th style="text-align:center; width:80px">Excluir</th>
+				        </tr>
+				      </thead>
+				      <tbody class="gradeA">
+				      </tbody>
+				    </table>
+				    <br>
+			  	</div>
+	        </div>
+		  	<div class="modal-footer">
+	          <div style="text-align:center">     
+	            <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-left" ></span> Voltar</button>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+  	</div>
+
+  	<!-- Modal Tipos -->
+  	<div id="modalTipos" class="modal fade" tabindex='-1' >
+	    <div class="modal-dialog" style="width:800px">
+	      <div class="modal-content" style="width:800px">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	          <h4>Definir tipos</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div class="row form-inline">
+	            <div class="col-xs-1">
+	              <label style="color:#1ABC9C">Tipo:</label>
+	            </div>
+	            <div class="col-xs-9">
+	              <input id="txtTipo" type="text" placeholder="Tipo" style="width:100%" class="form-control" />
+	            </div>
+	            <div class="col-xs-2">
+	              <button id="btnInserirTipo" class="btn btn-primary" title="Inserir novo tipo"><span class="glyphicon glyphicon-plus" ></span>  Inserir</button>
+	            </div>
+	          </div>
+	          <div>
+				    <table id="dataTable_tipos" cellpadding="0" cellspacing="0" border="0" class="display">
+				      <thead>
+				        <tr>
+							<th>Tipo</th>
+							<th style="text-align:center; width:80px">Excluir</th>
+				        </tr>
+				      </thead>
+				      <tbody class="gradeA">
+				      </tbody>
+				    </table>
+				    <br>
+			  	</div>
+	        </div>
+		  	<div class="modal-footer">
+	          <div style="text-align:center">     
+	            <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-left" ></span> Voltar</button>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+  	</div>
+
+  	<!-- Modal Herança -->
+  	<div id="modalHeranca" class="modal fade" tabindex='-1' >
+	    <div class="modal-dialog" style="width:800px">
+	      <div class="modal-content" style="width:800px">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	          <h4>Definir Herança</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div class="row form-inline">
+	            <div>
+	             	<input id="hfCodigoClasseHeranca" type="hidden" type="text" />
+	            </div>
+	            <div class="col-xs-2">
+	              	<label style="color:#1ABC9C">Classe filho:</label>
+	            </div>
+	            <div class="col-xs-4">
+	              	<select id="cmbClasseFilho"></select>
+	            </div>
+	            <div class="col-xs-2">
+	              	<label style="color:#1ABC9C">Classe pai:</label>
+	            </div>
+	            <div class="col-xs-4">
+	              	<select id="cmbClassePai"></select>
+	            </div>
+	          </div>
+	          <div>
+	          	<div class="col-xs-12" style="text-align:center">
+              		<button id="btnInserirHeranca" class="btn btn-primary" title="Inserir nova herança"><span class="glyphicon glyphicon-plus" ></span>  Inserir</button>
+	            </div>
+	          </div>
+	          <div>
+				    <table id="dataTable_heranca" cellpadding="0" cellspacing="0" border="0" class="display">
+				      <thead>
+				        <tr>
+							<th>Classe filho</th>
+							<th>Classe pai</th>
+							<th style="text-align:center; width:80px">Excluir</th>
+				        </tr>
+				      </thead>
+				      <tbody class="gradeA">
+				      </tbody>
+				    </table>
+				    <br>
+			  	</div>
+	        </div>
+		  	<div class="modal-footer">
+	          <div style="text-align:center">     
+	            <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-left" ></span> Voltar</button>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+  	</div>
+
+  	<!-- Modal Implementacao -->
+  	<div id="modalImplementacao" class="modal fade" tabindex='-1' >
+	    <div class="modal-dialog" style="width:800px">
+	      <div class="modal-content" style="width:800px">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	          <h4>Definir Implementações</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div class="row form-inline">
+	            <div>
+	             	<input id="hfCodigoClasseInterface" type="hidden" type="text" />
+	            </div>
+	            <div class="col-xs-2">
+	              	<label style="color:#1ABC9C">Classe:</label>
+	            </div>
+	            <div class="col-xs-4">
+	              	<select id="cmbClasseImplementacao"></select>
+	            </div>
+	            <div class="col-xs-2">
+	              	<label style="color:#1ABC9C">Interface:</label>
+	            </div>
+	            <div class="col-xs-4">
+	              	<select id="cmbInterface"></select>
+	            </div>
+	          </div>
+	          <div>
+	          	<div class="col-xs-12" style="text-align:center">
+              		<button id="btnInserirImplementacao" class="btn btn-primary" title="Inserir nova herança"><span class="glyphicon glyphicon-plus" ></span>  Inserir</button>
+	            </div>
+	          </div>
+	          <div>
+				    <table id="dataTable_implementacao" cellpadding="0" cellspacing="0" border="0" class="display">
+				      <thead>
+				        <tr>
+							<th>Classe</th>
+							<th>Interface</th>
+							<th style="text-align:center; width:80px">Excluir</th>
+				        </tr>
+				      </thead>
+				      <tbody class="gradeA">
+				      </tbody>
+				    </table>
+				    <br>
+			  	</div>
+	        </div>
+		  	<div class="modal-footer">
+	          <div style="text-align:center">     
+	            <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-left" ></span> Voltar</button>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+  	</div>
+
+  	<!-- Modal Caso de Uso -->
+  	<div id="modalCasoUso" class="modal fade" tabindex='-1' >
+	    <div class="modal-dialog" style="width:800px">
+	      <div class="modal-content" style="width:800px">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	          <h4>Definir Caso de Uso</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div class="row form-inline">
+	            <div>
+	             	<input id="hfCodigoClasseCasoUso" type="hidden" type="text" />
+	            </div>
+	            <div class="col-xs-2" class="right">
+	              	<label style="color:#1ABC9C">Caso de uso:</label>
+	            </div>
+	            <div class="col-xs-6">
+	              	<select id="cmbCasoUso"></select>
+	            </div>
+	          	<div class="col-xs-4" style="text-align:center">
+              		<button id="btnInserirCasoUso" class="btn btn-primary" title="Inserir caso de uso"><span class="glyphicon glyphicon-plus" ></span>  Inserir</button>
+	            </div>
+	          </div>
+	          <div>
+				    <table id="dataTable_casouso" cellpadding="0" cellspacing="0" border="0" class="display">
+				      <thead>
+				        <tr>
+							<th>Caso de uso</th>
+							<th style="text-align:center; width:80px">Excluir</th>
+				        </tr>
+				      </thead>
+				      <tbody class="gradeA">
+				      </tbody>
+				    </table>
+				    <br>
+			  	</div>
+	        </div>
+		  	<div class="modal-footer">
+	          <div style="text-align:center">     
+	            <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-left" ></span> Voltar</button>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+  	</div>
+
+  	<!-- Modal parametros -->
+  	<div id="modalParametros" class="modal fade" tabindex='-1' >
+	    <div class="modal-dialog" style="width:800px">
+	      <div class="modal-content" style="width:800px">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	          <h4>Definir parâmetros</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div class="row form-inline">
+	            <div>
+	              <input id="hfCodigoMetodo" type="hidden" type="text" />
+	            </div>
+	            <div class="col-xs-2">
+	              <label style="color:#1ABC9C">Parâmetro:</label>
+	            </div>
+	            <div class="col-xs-5">
+	              <input id="txtParametro" type="text" placeholder="Parâmetro" style="width:100%" class="form-control" />
+	            </div>
+	          </div>
+	          <br>
+	          <div class="row form-inline">
+	            <div class="col-xs-1">
+	              <label style="color:#1ABC9C">Tipo:</label>
+	            </div>
+	            <div class="col-xs-6">
+	              <select id="cmbTipoParametro"></select>
+	            </div>
+	            <div class="col-xs-3" style="text-align:left">
+	              <button id="btnGerenciarTipoParametro" class="btn btn-primary" title="Gerenciar tipo"><span class="glyphicon glyphicon-cog" ></span>Gerenciar tipo</button>
+	            </div>
+		        <div class="col-xs-1" style='text-align:center'>
+		        	<button id="btnInserirParametro" class="btn btn-primary" title="Inserir novo parâmetro"><span class="glyphicon glyphicon-plus" ></span>  Inserir</button>
+		        </div>
+		      </div>
+	          <div>
+				    <table id="dataTable_parametro" cellpadding="0" cellspacing="0" border="0" class="display">
+				      <thead>
+				        <tr>
+							<th>Parâmetro</th>
+							<th style="text-align:center; width:150px">Tipo</th>
+							<th style="text-align:center; width:80px">Excluir</th>
+				        </tr>
+				      </thead>
+				      <tbody class="gradeA">
+				      </tbody>
+				    </table>
+				    <br>
+			  	</div>
+	        </div>
+		  	<div class="modal-footer">
+	          <div style="text-align:center">     
+	            <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-left" ></span> Voltar</button>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+  	</div>
+
+{% endblock %}
+
+{% block js_down %}
+  <script src="/static/jsTemplates/classe.js"></script>
+  <script src="/static/jsTemplates/atributos.js"></script>
+  <script src="/static/jsTemplates/metodos.js"></script>
+  <script src="/static/jsTemplates/heranca.js"></script>
+  <script src="/static/jsTemplates/parametros.js"></script>
+  <script src="/static/jsTemplates/tipo.js"></script>
+  <script src="/static/jsTemplates/classecasouso.js"></script>
+  <script src="/static/jsTemplates/relacaoClasseInterface.js"></script>
+{% endblock %}

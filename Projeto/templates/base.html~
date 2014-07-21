@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TCC - Home</title>
+	  	<link href="/static/css/flat-ui.css" rel="stylesheet">
+	 	<!-- Loading Bootstrap -->
+	    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+	    <!-- Loading Flat UI -->
+	    <link href="/static/css/flat-ui.css" rel="stylesheet">
+	    <link href="/static/css/demo.css" rel="stylesheet">
+	    <meta charset="utf-8">
+  	</head>
+
+  	<body>
+  		<div id="menu">
+	  		<nav class="navbar navbar-default" role="navigation">
+			  <div class="navbar-header">
+			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+			      <span class="sr-only">Toggle navigation</span>
+			    </button>
+			    <a class="navbar-brand active" href="/">TCC</a>
+			  </div>
+			  <div class="collapse navbar-collapse" id="navbar-collapse-01">
+			    <ul class="nav navbar-nav">           
+			      <li><a href="/projetos">Projetos</a></li>
+			    </ul>           
+			  </div><!-- /.navbar-collapse -->
+			</nav><!-- /navbar -->
+		</div>
+
+		<div id="divBody">
+			{% block container %}{% endblock %}
+		</div>
+
+
+		<div id="modalErro" class="modal fade" tabindex='-1'>
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header" style="background-color: #d2322d;">
+		          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		          <h4 style="color:white"><span class="glyphicon glyphicon-exclamation-sign" > Erro</h4>
+		        </div>
+		        <div class="modal-body">
+		          <div style="color:red">
+		            <label id="lbMensagemErro">Erro ao realizar esta ação !</label>
+		          </div>
+		        </div>
+		        <div class="modal-footer">
+		          <div style="text-align:center"> 
+		            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-left" > Voltar</button>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+	  	</div>
+
+	  	<div id="modalAlerta" class="modal fade" tabindex='-1'>
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header" style="background-color: #F1C40F;">
+		          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		          <h4 style="color:white"><span class="glyphicon glyphicon-info-sign" > Alerta</h4>
+		        </div>
+		        <div class="modal-body">
+		          <div style="color:black">
+		            <label id="lbMensagemAlerta"></label>
+		          </div>
+		        </div>
+		        <div class="modal-footer">
+		          <div style="text-align:center"> 
+		            <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-left" > Voltar</button>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+	  	</div>
+
+		<div id="footer" class="container">
+  		    <nav class=" navbar-fixed-bottom">
+  		        <div style="color:#1ABC9C; text-align:center"> ICT - UNIFESP - SÃO JOSÉ DOS CAMPOS</div>
+  		    </nav>
+	    </div>
+
+  	</body>
+
+ 	<!-- Load JS here for greater good =============================-->
+    <script src="/static/js/jquery-1.8.3.min.js"></script>
+    <script src="/static/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="/static/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap-select.js"></script>
+    <script src="/static/js/bootstrap-switch.js"></script>
+    <script src="/static/js/flatui-checkbox.js"></script>
+    <script src="/static/js/flatui-radio.js"></script>
+    <script src="/static/js/jquery.placeholder.js"></script>
+    <style type="text/css">@import "/static/css/demo_table.css";</style>
+	<script src="/static/js/funcoes.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.dataTables.js"></script>
+
+{% block js_down %}{% endblock %}
+
+</html>
